@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RoomController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,36 +15,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/**
- * Get all bookeed rooms or rooms for a mail address
- * @param $email - users email address
- * @return $json_array - rooms
- */
-Route::middleware('basic_auth')->get('room/book/{email}', function (Request $request, $email) {
-    //var_dump($request);
-    return "Rooms booked ".$email;
-})->name("booked.rooms");
+Route::prefix('/room')->name('room.')->middleware('basic_auth')->group(function() {
+    /**
+     * Get all booked rooms or rooms for a mail address
+     * @param $user_id - users email address
+     * @return $json_array - rooms
+     */
+    Route::middleware('basic_auth')->get('book/{user_id?}', [RoomController::class, 'listRooms'])
+    ->name("booked.list");
 
-/**
- * book a room for user with email
- * @param $email
- * @return $json_array - status code, room_token
- */
-Route::middleware('basic_auth')->post('room/book', function (Request $request) {
-    //var_dump($request);
-    return response()->json("Book room for ".$request->post("email")." at ".$request->post("date")." for ".$request->post('duration'));
-})->name("book.room");
+    /**
+     * book a room for user with email
+     * @param $user_id
+     * @param $date
+     * @param $duration
+     * @param $max_participants
+     * @return $json_array - status code, room_token
+     */
+    Route::middleware('basic_auth')->post('book', [RoomController::class, 'bookRoom'])
+    ->name("book");
 
 
-/**
- * create the room for booking
- * @param $room_token
- * @return $json_array - status, link
- */
-Route::middleware('basic_auth')->post('room/create', function (Request $request) {
-    return response()->json("Book room for ".$request->post("email")." at ".$request->post("date")." for ".$request->post('duration'));
-})->name("create.room");
-
+    /**
+     * create the room from booking
+     * @param $room_token
+     * @param $max_participants
+     * @return $json_array - status, link
+     */
+    Route::middleware('basic_auth')->post("create", function (Request $request) {
+        return response()->json("Book room for " . $request->post("user_id") . " at " . $request->post("date") . " for " . $request->post('duration'));
+    })->name("create");
+});
 
 //Examples
 //optional parameter with where over pattern
