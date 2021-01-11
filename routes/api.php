@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\RoomController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,9 +41,7 @@ Route::prefix('/room')->name('room.')->middleware('basic_auth')->group(function(
      * @param $max_participants
      * @return $json_array - status, link
      */
-    Route::middleware('basic_auth')->post("create", function (Request $request) {
-        return response()->json("Book room for " . $request->post("user_id") . " at " . $request->post("date") . " for " . $request->post('duration'));
-    })->name("create");
+    Route::middleware('basic_auth')->post("create", [RoomController::class, 'createRoom'])->name("create");
 });
 
 //Examples

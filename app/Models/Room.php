@@ -8,26 +8,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @mixin Builder
+ * @property mixed max_participants
+ * @property array|mixed|string|null user_token
+ * @property array|int|mixed|string|null max_duration
+ * @property array|mixed|string start_date
  */
 
 class Room extends Model
 {
     use HasFactory;
 
-    /**
-     * @var array|mixed|string
-     */
-    public $start_date;
-    /**
-     * @var mixed
-     */
-    public $id;
-    /**
-     * @var array|int|mixed|string
-     */
-    public $max_duration;
-    /**
-     * @var array|int|mixed|string|null
-     */
-    public $max_participants;
 }
