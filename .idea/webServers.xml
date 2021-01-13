@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="d6da1a68-686a-41e6-bfb3-753472e02b53" name="S3-Medien" url="http://videoapi.s3-medien.de">
+        <fileTransfer rootFolder="/html/videoapi" host="s3-medien.de" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
