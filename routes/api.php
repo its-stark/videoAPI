@@ -20,7 +20,7 @@ Route::prefix('/room')->name('room.')->middleware('basic_auth')->group(function(
      * @param $user_id - users email address
      * @return $json_array - rooms
      */
-    Route::middleware('basic_auth')->get('book/{user_id?}', [RoomController::class, 'listRooms'])
+    Route::middleware('basic_auth')->get('book/{booking_token?}/{user_token?}', [RoomController::class, 'listRooms'])
     ->name("booked.list");
 
     /**
@@ -37,11 +37,17 @@ Route::prefix('/room')->name('room.')->middleware('basic_auth')->group(function(
 
     /**
      * create the room from booking
-     * @param $room_token
-     * @param $max_participants
+     * @param $parameters
      * @return $json_array - status, link
      */
     Route::middleware('basic_auth')->post("create", [RoomController::class, 'createRoom'])->name("create");
+
+    /**
+     * create the room from booking
+     * @param $parameters
+     * @return $json_array - status
+     */
+    Route::middleware('basic_auth')->post("update", [RoomController::class, 'updateRoom'])->name("update");
 });
 
 //Examples

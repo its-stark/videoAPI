@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Builder;
  * @property array|mixed|string|null user_token
  * @property array|int|mixed|string|null max_duration
  * @property array|mixed|string start_date
+ * @property mixed id
+ * @property array|mixed|string|null booking_token
  */
 
 class Room extends Model
