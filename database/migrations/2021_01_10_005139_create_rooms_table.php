@@ -21,9 +21,9 @@ class CreateRoomsTable extends Migration
             $table->integer('max_participants')->default(20);
             $table->integer('actual_duration')->default(0);
             $table->integer('actual_participants')->default(0);
-            $table->text('booking_token')->default('');
-            $table->text('user_token')->default('');
-            $table->text('token')->default('');
+            $table->text('booking_token')->nullable();
+            $table->text('user_token')->nullable();
+            $table->text('token')->nullable();
             $table->string('status')->default('booked');
         });
     }

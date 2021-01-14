@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class AddAdminTokenToRoom extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('user_token')->nullable(true);
-            $table->string('password')->default('');
-            $table->rememberToken();
-            $table->timestamps();
+        Schema::table('rooms', function (Blueprint $table) {
+            //
+            $table->string('admin_token')->default('')->after('user_token');
         });
     }
 
@@ -29,6 +26,9 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::table('rooms', function (Blueprint $table) {
+            //
+            $table->dropColumn('admin_token');
+        });
     }
 }
